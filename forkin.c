@@ -14,7 +14,7 @@ struct tm * getTime() {
 
 int main(){  
   int im_par, status, length, child_fin_id;
-  printf("PARENT: I'm starting up\n");
+  printf("PARENT: I'm starting up\tCurrent time: %s\n", asctime(getTime()));
 
   // Creates 1 child
   im_par = fork();
