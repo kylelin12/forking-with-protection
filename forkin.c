@@ -1,6 +1,18 @@
 #include "forkin.h"
 
-int main(){
+// Function to return a struct containing the current time
+// Stolen from stackoverflow
+struct tm * getTime() {
+  time_t rawtime;
+  struct tm * timeinfo;
+
+  time (&rawtime);
+  timeinfo = localtime(&rawtime);
+
+  return timeinfo;
+}
+
+int main(){  
   int im_par, status, length, child_fin_id;
   printf("PARENT: I'm starting up\n");
 
@@ -18,11 +30,12 @@ int main(){
 
     // srand(time(NULL)); Won't be truly random because the processes are created one after the other
     srand(getpid()); // PID is a unique seed!
+
     int t = rand() % 16 + 5;
     // printf("CHILD: Sleeping for %d seconds\n", t);
     sleep(t);
 
-    printf("CHILD: I woke up\n");
+    printf("CHILD: I woke up\tCurrent time: %s\n", asctime(getTime()));
 
     return t;
   } else { // If the process is a parent
