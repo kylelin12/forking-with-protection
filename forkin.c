@@ -27,7 +27,9 @@ int main(){
     return t;
   } else { // If the process is a parent
     child_fin_id = wait(&status);
-    printf("PARENT: My child with id %d waited %d seconds\n", child_fin_id, *((char *)&status+1));
+    // *((char *))&status+1)) is a pointer to the memory address located 1 byte after status
+    // This places the pointer at the start of "Byte 1" of status.
+    printf("PARENT: My child with id %d waited %d seconds\n", child_fin_id, * ((char *)&status+1));
     printf("ALL DONE!\n");
   }
   
